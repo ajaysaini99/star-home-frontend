@@ -1,11 +1,17 @@
 <template>
-  <div>Hello, welcome to star Home</div>
+  <navigation></navigation>
 </template>
 
 <script>
+import Navigation from "./components/navigation/Navigation.vue";
 export default {
   name: "App",
+  components: {
+    Navigation,
+  },
 };
 </script>
 
-<style scoped></style>
+<style>
+@import "./assets/styles/normalize.css";
+</style>
