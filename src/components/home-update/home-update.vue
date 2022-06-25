@@ -17,16 +17,26 @@
         @go-back="goBack"
       ></home-form>
     </div>
+    <div v-if="activeWindow === 2">
+      <div class="heading">Preview</div>
+      <preview
+        :generalFormData="generalFormData"
+        :specificFormData="specificFormData"
+        @go-back="goBack"
+      ></preview>
+    </div>
   </div>
 </template>
 
 <script>
 import HomeForm from "./home-form.vue";
+import Preview from "./preview.vue";
 
 export default {
   name: "home-update",
   components: {
     HomeForm,
+    Preview,
   },
   data() {
     return {
@@ -202,7 +212,8 @@ export default {
         },
       ],
       activeWindow: 0,
-      formData: {},
+      generalFormData: {},
+      specificFormData: {},
     };
   },
   methods: {
@@ -223,10 +234,10 @@ export default {
     btnClicked(event) {
       if (event === "general") {
         this.activeWindow = 1;
-        this.formData = this.storeData(event);
+        this.generalFormData = this.storeData(event);
       } else {
         this.activeWindow = 2;
-        this.formData = { ...this.formData, ...this.storeData(event) };
+        this.specificFormData = this.storeData(event);
       }
       const elem = document.getElementById("formWrapper");
       if (elem) {
