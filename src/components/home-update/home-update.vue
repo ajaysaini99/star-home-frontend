@@ -286,11 +286,11 @@ export default {
 <style scoped>
 .form-wrapper {
   background: gainsboro;
-  margin-top: 16px;
   padding: 0 16px;
   padding-bottom: 16px;
   position: relative;
   scroll-behavior: smooth;
+  margin-top: 84px;
 }
 .info-container {
   margin-top: 24px;
@@ -315,7 +315,7 @@ export default {
   .form-wrapper {
     max-width: 1200px;
     margin: auto;
-    margin-top: 16px;
+    margin-top: 84px;
     padding: 0 16px 24px 16px;
     box-sizing: border-box;
   }

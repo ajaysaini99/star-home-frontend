@@ -79,6 +79,9 @@ export default {
   height: 68px;
   width: 100vw;
   background: bisque;
+  position: fixed;
+  top: 0;
+  z-index: 10;
 }
 .nav-container {
   max-width: 1200px;
