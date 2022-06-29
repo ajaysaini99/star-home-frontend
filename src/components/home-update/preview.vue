@@ -1,5 +1,6 @@
 <template>
   <div class="preview-container">
+    <loader v-if="loading"></loader>
     <div class="image-container">
       <gallery :images="images" :index="index" @close="index = null"></gallery>
       <div
@@ -23,14 +24,16 @@
     <div class="specific-info">
       <div class="info-div" v-for="(data, key) in specificFormData" :key="key">
         <template v-if="typeof data === 'object'">
-          <div class="info-key">{{ key }}</div>
+          <div class="info-key">{{ formDataMapping[key] }}</div>
           <div v-for="(subData, subKey) in data" :key="subKey">
-            <div class="info-key info-sub-key">{{ subKey }}</div>
+            <div class="info-key info-sub-key">
+              {{ formDataMapping[subKey] }}
+            </div>
             <div class="info-data info-sub-data">{{ subData }}</div>
           </div>
         </template>
         <template v-else>
-          <div class="info-key">{{ key }}</div>
+          <div class="info-key">{{ formDataMapping[key] }}</div>
           <div class="info-data">{{ data }}</div>
         </template>
       </div>
@@ -39,14 +42,16 @@
       <div v-for="(data, key) in generalFormData" :key="key">
         <div class="info-div" v-if="key !== 'medias'">
           <template v-if="typeof data === 'object'">
-            <div class="info-key">{{ key }}</div>
+            <div class="info-key">{{ formDataMapping[key] }}</div>
             <div v-for="(subData, subKey) in data" :key="subKey">
-              <div class="info-key info-sub-key">{{ subKey }}</div>
+              <div class="info-key info-sub-key">
+                {{ formDataMapping[subKey] }}
+              </div>
               <div class="info-data info-sub-data">{{ subData }}</div>
             </div>
           </template>
           <template v-else>
-            <div class="info-key">{{ key }}</div>
+            <div class="info-key">{{ formDataMapping[key] }}</div>
             <div class="info-data">{{ data }}</div>
           </template>
         </div>
@@ -61,11 +66,15 @@
 
 <script>
 import VueGallery from "vue-gallery";
+import Loader from "./../common/loader.vue";
+import { addHome } from "./../../services/home";
+import { FORM_DATA_MAPPING } from "./../../helper/constants";
 
 export default {
   name: "home-form",
   components: {
     gallery: VueGallery,
+    Loader,
   },
   props: {
     specificFormData: {
@@ -80,6 +89,8 @@ export default {
       index: null,
       showViewMore: true,
       formData: {},
+      formDataMapping: FORM_DATA_MAPPING,
+      loading: false,
     };
   },
   computed: {
@@ -96,9 +107,16 @@ export default {
     },
     submitForm() {
       const isFormDataValid = this.checkFormValidity();
-      if (isFormDataValid) {
-        //make request
-      }
+      if (!isFormDataValid) return;
+
+      this.loading = true;
+      addHome(this.formData)
+        .then(() => {
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     checkFormValidity() {
       this.formData = { ...this.generalFormData, ...this.specificFormData };
@@ -165,6 +183,7 @@ export default {
   border-radius: 16px;
   text-transform: capitalize;
   padding: 4px 10px;
+  height: fit-content;
 }
 .info-key {
   font-weight: bold;
