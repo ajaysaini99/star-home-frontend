@@ -79,7 +79,7 @@ export default {
       .then((data) => {
         this.homeData = [data[2]];
       })
-      .catch((error) => {
+      .catch(() => {
         console.error();
       });
   },
