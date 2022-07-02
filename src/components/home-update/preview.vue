@@ -1,26 +1,7 @@
 <template>
   <div class="preview-container">
     <loader v-if="loading"></loader>
-    <div class="image-container">
-      <gallery :images="images" :index="index" @close="index = null"></gallery>
-      <div
-        class="image"
-        v-for="(image, imageIndex) in images"
-        :key="imageIndex"
-        @click="index = imageIndex"
-        :class="{ 'hide-img': imageIndex > 3 && showViewMore }"
-        :style="{
-          backgroundImage: 'url(' + image + ')',
-        }"
-      ></div>
-    </div>
-    <div
-      v-if="images.length > 3"
-      class="view-all"
-      @click="showViewMore = !showViewMore"
-    >
-      {{ viewText }}
-    </div>
+    <image-carousel :images="images" :imageCount="4"></image-carousel>
     <div class="specific-info">
       <div class="info-div" v-for="(data, key) in specificFormData" :key="key">
         <template v-if="typeof data === 'object'">
@@ -65,16 +46,16 @@
 </template>
 
 <script>
-import VueGallery from "vue-gallery";
 import Loader from "./../common/loader.vue";
+import ImageCarousel from "./../common/image-carousel.vue";
 import { addHome } from "./../../services/home";
 import { FORM_DATA_MAPPING } from "./../../helper/constants";
 
 export default {
   name: "home-form",
   components: {
-    gallery: VueGallery,
     Loader,
+    ImageCarousel,
   },
   props: {
     specificFormData: {
