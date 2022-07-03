@@ -33,7 +33,7 @@ import HomeForm from "./home-form.vue";
 import Preview from "./preview.vue";
 
 export default {
-  name: "home-update",
+  name: "HomeUpdate",
   components: {
     HomeForm,
     Preview,
