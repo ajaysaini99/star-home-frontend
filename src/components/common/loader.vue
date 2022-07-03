@@ -85,10 +85,3 @@ export default {
   }
 }
 </style>
-
-<style>
-.disable-scroll {
-  overflow: hidden;
-  height: 100%;
-}
-</style>

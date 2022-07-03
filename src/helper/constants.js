@@ -18,3 +18,14 @@ export const FORM_DATA_MAPPING = {
   common_bathroom: "Common Btahrooms",
   other_specification: "Other Specifications",
 };
+
+export const CONTACT_NUMBERS = [
+  {
+    number: "8209322971",
+    name: "Mr. Prabhu Dayal",
+  },
+  {
+    number: "8209322971",
+    name: "Mr. Lal Chand",
+  },
+];

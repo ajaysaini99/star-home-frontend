@@ -26,6 +26,18 @@ li {
 a {
   text-decoration: none;
 }
+
+.text-line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--line-count);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.disable-scroll {
+  overflow: hidden;
+  height: 100%;
+}
 /* label{
       display: block;
       margin-top: 0.5em;
