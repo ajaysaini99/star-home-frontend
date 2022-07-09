@@ -33,7 +33,7 @@ import HomeForm from "./home-form.vue";
 import Preview from "./preview.vue";
 
 export default {
-  name: "home-update",
+  name: "HomeUpdate",
   components: {
     HomeForm,
     Preview,
@@ -74,6 +74,27 @@ export default {
           options: [
             { label: "Sold", name: "sold", value: true, type: "radio" },
             { label: "Unsold", name: "unsold", value: false, type: "radio" },
+          ],
+        },
+        {
+          value: null,
+          label: "Under Construction",
+          name: "under_construction",
+          onInput: this.onInputData,
+          required: true,
+          options: [
+            {
+              label: "Under Construction",
+              name: "notdone",
+              value: true,
+              type: "radio",
+            },
+            {
+              label: "Ready To Shift",
+              name: "done",
+              value: false,
+              type: "radio",
+            },
           ],
         },
         {
@@ -226,6 +247,9 @@ export default {
       }
       if (field.name === "covered" || field.name === "noncovered") {
         this.specificData[index].value = field.value;
+      }
+      if (field.name === "notdone" || field.name === "done") {
+        this.generalData[index].value = field.value;
       }
     },
     onInputSubData(event, field) {
