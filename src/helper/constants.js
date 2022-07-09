@@ -2,6 +2,7 @@ export const FORM_DATA_MAPPING = {
   area: "Built up area (Sqft)",
   front: "Front (Ft)",
   sold: "Status",
+  under_construction: "Under Construction",
   location: "Address",
   plot_name: "Plot Number",
   colony: "Colony",
@@ -29,3 +30,27 @@ export const CONTACT_NUMBERS = [
     name: "Mr. Lal Chand",
   },
 ];
+
+export const HOME_STATUS = {
+  under_construction: {
+    display: "Under Construction",
+    style: {
+      background: "orange",
+      color: "white",
+    },
+  },
+  ready_to_shift: {
+    display: "Ready To Shift",
+    style: {
+      background: "darkgreen",
+      color: "white",
+    },
+  },
+  sold: {
+    display: "Sold",
+    style: {
+      background: "red",
+      color: "white",
+    },
+  },
+};

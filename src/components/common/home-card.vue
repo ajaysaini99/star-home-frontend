@@ -41,8 +41,8 @@
       >
         <div class="contact-btn">Contact Now</div>
       </div>
-      <div class="status-chip">
-        <span class="status-text">Under Construction</span>
+      <div class="status-chip" :style="getHomeStatus(home).style">
+        <span class="status-text">{{ getHomeStatus(home).display }}</span>
       </div>
       <contact-modal
         v-if="openContactModal"
@@ -55,8 +55,11 @@
 </template>
 
 <script>
-import { getHomes } from "./../../services/home";
-import { FORM_DATA_MAPPING, CONTACT_NUMBERS } from "./../../helper/constants";
+import {
+  FORM_DATA_MAPPING,
+  CONTACT_NUMBERS,
+  HOME_STATUS,
+} from "./../../helper/constants";
 import ContactModal from "./contact-modal.vue";
 import ImageCarousel from "./image-carousel.vue";
 
@@ -66,22 +69,17 @@ export default {
     ImageCarousel,
     ContactModal,
   },
+  props: {
+    homeData: {
+      default: [],
+    },
+  },
   data() {
     return {
-      homeData: [],
       formDataMapping: FORM_DATA_MAPPING,
       contactNumbers: CONTACT_NUMBERS,
       openContactModal: false,
     };
-  },
-  mounted() {
-    getHomes()
-      .then((data) => {
-        this.homeData = [data[2]];
-      })
-      .catch(() => {
-        console.error();
-      });
   },
   methods: {
     getHomeData(home) {
@@ -102,15 +100,21 @@ export default {
       return homeData;
     },
     clickCard() {},
+    getHomeStatus(home) {
+      if (home && home.under_construction) {
+        return HOME_STATUS.under_construction;
+      } else if (home && home.sold) {
+        return HOME_STATUS.sold;
+      } else {
+        return HOME_STATUS.ready_to_shift;
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
 .card-container {
-  margin-top: 84px;
-  margin-left: 16px;
-  margin-right: 16px;
   --gap: 12px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
@@ -167,13 +171,13 @@ export default {
   position: absolute;
   top: 16px;
   right: 0;
-  background: orange;
+  min-width: 80px;
+  text-align: center;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
 .status-text {
   padding: 4px;
-  color: white;
 }
 @media screen and (max-width: 375px) {
 }

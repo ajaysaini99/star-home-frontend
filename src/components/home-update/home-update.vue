@@ -77,6 +77,27 @@ export default {
           ],
         },
         {
+          value: null,
+          label: "Under Construction",
+          name: "under_construction",
+          onInput: this.onInputData,
+          required: true,
+          options: [
+            {
+              label: "Under Construction",
+              name: "notdone",
+              value: true,
+              type: "radio",
+            },
+            {
+              label: "Ready To Shift",
+              name: "done",
+              value: false,
+              type: "radio",
+            },
+          ],
+        },
+        {
           label: "Address",
           name: "location",
           fields: [
@@ -226,6 +247,9 @@ export default {
       }
       if (field.name === "covered" || field.name === "noncovered") {
         this.specificData[index].value = field.value;
+      }
+      if (field.name === "notdone" || field.name === "done") {
+        this.generalData[index].value = field.value;
       }
     },
     onInputSubData(event, field) {
